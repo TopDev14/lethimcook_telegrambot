@@ -5,6 +5,7 @@ const Meme = require("./memeSchema");
 const crypto = require("crypto");
 const axios = require("axios");
 const { error } = require("console");
+const http = require('http');
 
 // Connect to MongoDB
 mongoose
@@ -232,4 +233,17 @@ bot.on("message", async (msg) => {
       }
     }
   }
+});
+
+// Create a basic HTTP server
+const server = http.createServer((req, res) => {
+  res.statusCode = 200;
+  res.setHeader('Content-Type', 'text/plain');
+  res.end('Telegram bot is running');
+});
+
+// Listen on the PORT provided by Heroku
+const PORT = process.env.PORT || 3000;
+server.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
